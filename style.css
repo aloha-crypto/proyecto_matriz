@@ -1,0 +1,52 @@
+```css
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f2f2f2;
+  color: #333;
+}
+header {
+  background: #4a4a4a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.intro, .panel, .resultados {
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+button {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background: #357ac9;
+}
+.tabla-scroll {
+  overflow: auto;
+  max-height: 300px;
+  border: 1px solid #ccc;
+  background: white;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+td {
+  padding: 4px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 12px;
+}
+```
