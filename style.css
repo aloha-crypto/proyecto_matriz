@@ -1,52 +1,55 @@
-```css
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f2f2f2;
-  color: #333;
+:root{
+  --bg:#f4f6f8;
+  --panel:#ffffff;
+  --accent:#1f6feb;
+  --muted:#6b7280;
+  --card-border:#e6eef6;
 }
-header {
-  background: #4a4a4a;
-  color: white;
-  padding: 20px;
-  text-align: center;
+*{box-sizing:border-box;font-family:Inter,system-ui,Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:#0f1724}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 28px;background:linear-gradient(90deg,#243b55 0%, #141e30 100%);color:#fff
 }
-.intro, .panel, .resultados {
-  background: white;
-  margin: 20px auto;
-  padding: 20px;
-  width: 90%;
-  max-width: 900px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+header h1{margin:0;font-size:20px}
+header .subtitle{margin:4px 0 0 0;font-size:13px;opacity:0.9}
+header .authors{font-size:13px;margin:0}
+
+main{display:flex;gap:18px;padding:18px;align-items:flex-start}
+.panel-left{width:360px}
+.panel-right{flex:1;max-width:1100px}
+
+.card{
+  background:var(--panel);padding:14px;border-radius:12px;margin-bottom:14px;
+  box-shadow:0 6px 18px rgba(12,20,35,0.06);border:1px solid var(--card-border)
 }
-button {
-  background: #4a90e2;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
+.card.small{padding:10px}
+.card h3{margin-top:0}
+
+label{display:block;margin:10px 0 6px 0;color:var(--muted);font-size:13px}
+input[type="text"], input[type="number"]{
+  width:100%;padding:9px;border:1px solid #e6eef6;border-radius:8px;font-size:14px;
+  background:#fbfdff
 }
-button:hover {
-  background: #357ac9;
+.btn-row{display:flex;gap:8px;margin-top:12px}
+button{
+  background:var(--accent);color:#fff;border:0;padding:8px 12px;border-radius:8px;font-weight:600;
+  cursor:pointer;box-shadow:0 6px 12px rgba(31,111,235,0.12)
 }
-.tabla-scroll {
-  overflow: auto;
-  max-height: 300px;
-  border: 1px solid #ccc;
-  background: white;
+button:hover{opacity:0.95}
+.msg{margin-top:10px;padding:8px;background:#fbfdff;border-radius:8px;color:var(--muted);font-size:13px}
+
+.tabla-scroll{
+  overflow:auto;max-height:360px;border-radius:10px;border:1px solid #e6eef6;background:#fff;padding:6px
 }
-table {
-  border-collapse: collapse;
-  width: 100%;
+table{border-collapse:collapse;width:100%}
+td, th{border:1px solid #f1f5f9;padding:6px;text-align:center;font-size:12px}
+.matriz-text{background:#0b1722;color:#e6f1ff;padding:12px;border-radius:8px;max-height:220px;overflow:auto}
+.log{background:#0f1722;color:#e6f1ff;padding:12px;border-radius:8px;max-height:160px;overflow:auto}
+
+footer{text-align:center;padding:12px;color:#64748b;font-size:13px}
+@media (max-width:980px){
+  main{flex-direction:column}
+  .panel-left{width:100%}
+  .panel-right{width:100%}
 }
-td {
-  padding: 4px;
-  border: 1px solid #ddd;
-  text-align: center;
-  font-size: 12px;
-}
-```
