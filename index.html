@@ -1,42 +1,115 @@
-```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sistema Matricial 32x32</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sistema Matricial 32×32 — Alondra y Gabriela</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Pyodide -->
   <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 </head>
 <body>
   <header>
-    <h1>Sistema Matricial 32×32 para Gestión de Medicamentos</h1>
-    <p class="autoria">Desarrollado por: <strong>Alondra y Gabriela</strong></p>
+    <div class="hdr-left">
+      <h1>Sistema Matricial 32×32</h1>
+      <p class="subtitle">Gestión y análisis de inventario farmacéutico — Álgebra lineal aplicada</p>
+    </div>
+    <div class="hdr-right">
+      <p class="authors">Desarrollado por: <strong>Alondra y Gabriela</strong></p>
+    </div>
   </header>
 
-  <section class="intro">
-    <h2>Introducción</h2>
-    <p>
-      Este portal implementa un sistema matricial de 32×32 para la gestión y análisis de medicamentos,
-      utilizando álgebra lineal aplicada. El sistema permite modelar inventarios, optimizar rotación FEFO,
-      analizar eficiencia logística y proyectar riesgos mediante combinaciones lineales y matrices.
-    </p>
-  </section>
+  <main>
+    <!-- PANEL IZQUIERDO: B2 (caja elegante) -->
+    <aside class="panel-left">
+      <h2>Registrar medicamento</h2>
 
-  <section class="panel">
-    <h2>Ingreso de datos</h2>
-    <button onclick="runPythonCode()">Ejecutar sistema 32×32</button>
-  </section>
+      <div class="card">
+        <label>Fila (0–31)</label>
+        <input id="inp-fila" type="number" min="0" max="31" value="0" />
+        <label>Columna (0–31)</label>
+        <input id="inp-col" type="number" min="0" max="31" value="0" />
 
-  <section class="resultados">
-    <h2>Matriz 32×32</h2>
-    <div id="tabla-container" class="tabla-scroll"></div>
+        <label>Tipo</label>
+        <input id="inp-tipo" type="text" placeholder="Ej: Analgesico" />
 
-    <h2>Matriz en formato texto</h2>
-    <pre id="texto-matriz"></pre>
-  </section>
+        <label>Ubicación (texto)</label>
+        <input id="inp-ubic" type="text" placeholder="Ej: Estante A3" />
+
+        <label>Lote</label>
+        <input id="inp-lote" type="text" placeholder="Ej: L123" />
+
+        <label>Vencimiento (YYYY-MM-DD)</label>
+        <input id="inp-venc" type="text" placeholder="2025-03-10" />
+
+        <label>Condiciones</label>
+        <input id="inp-cond" type="text" placeholder="Temperatura 20C; Humedad 50%" />
+
+        <div class="row btn-row">
+          <button id="btn-registrar">Registrar</button>
+          <button id="btn-rellenar">Rellenar 50</button>
+        </div>
+
+        <div id="msg-registrar" class="msg">Estado: esperando acción...</div>
+      </div>
+
+      <h3>Operaciones rápidas</h3>
+      <div class="card small">
+        <label>Tipo para analizar</label>
+        <input id="tipo-analizar" type="text" placeholder="Analgesico" />
+
+        <div class="row btn-row">
+          <button id="btn-construir">Construir matriz A</button>
+          <button id="btn-fefo">FEFO por tipo</button>
+        </div>
+        <div class="row btn-row">
+          <button id="btn-compare">Comparar tiempos</button>
+          <button id="btn-riesgo">Proyección riesgo</button>
+        </div>
+
+        <div class="row btn-row">
+          <button id="btn-export">Exportar CSV (A)</button>
+          <button id="btn-mostrar">Mostrar matriz en pantalla</button>
+        </div>
+
+        <div id="msg-ops" class="msg">Estado operaciones: esperando...</div>
+      </div>
+
+      <div class="card small">
+        <h4>Instrucciones rápidas</h4>
+        <ol>
+          <li>Registra medicinas con <em>Registrar</em>.</li>
+          <li>Construye la matriz A (3U + 2C + T).</li>
+          <li>Analiza por <em>tipo</em> (FEFO / riesgo / tiempos).</li>
+        </ol>
+      </div>
+    </aside>
+
+    <!-- PANEL DERECHO: resultados -->
+    <section class="panel-right">
+      <h2>Resultados</h2>
+
+      <div class="card">
+        <h3>Matriz (tabla) — scroll</h3>
+        <div id="tabla-container" class="tabla-scroll"><em>La tabla aparecerá aquí.</em></div>
+      </div>
+
+      <div class="card">
+        <h3>Matriz (texto)</h3>
+        <pre id="texto-matriz" class="matriz-text">Aquí aparecerá la matriz en formato texto.</pre>
+      </div>
+
+      <div class="card">
+        <h3>Salida / Logs</h3>
+        <pre id="output-log" class="log">Mensajes del sistema...</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Portal académico — ejecutado en el navegador con Python (Pyodide).</small>
+  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-```
