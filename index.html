@@ -1,0 +1,141 @@
+# index.html
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Matricial 32x32</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Sistema Matricial 32×32 para Gestión de Medicamentos</h1>
+    <p class="autoria">Desarrollado por: <strong>Alondra y Gabriela</strong></p>
+  </header>
+
+  <section class="intro">
+    <h2>Introducción</h2>
+    <p>
+      Este portal implementa un sistema matricial de 32×32 para la gestión y análisis de medicamentos,
+      utilizando álgebra lineal aplicada. El sistema permite modelar inventarios, optimizar rotación FEFO,
+      analizar eficiencia logística y proyectar riesgos mediante combinaciones lineales y matrices.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>Ingreso de datos</h2>
+    <button onclick="runPythonCode()">Ejecutar sistema 32×32</button>
+  </section>
+
+  <section class="resultados">
+    <h2>Matriz 32×32</h2>
+    <div id="tabla-container" class="tabla-scroll"></div>
+
+    <h2>Matriz en formato texto</h2>
+    <pre id="texto-matriz"></pre>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+# style.css
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f2f2f2;
+  color: #333;
+}
+header {
+  background: #4a4a4a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.intro, .panel, .resultados {
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+button {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background: #357ac9;
+}
+.tabla-scroll {
+  overflow: auto;
+  max-height: 300px;
+  border: 1px solid #ccc;
+  background: white;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+td {
+  padding: 4px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 12px;
+}
+```
+
+# script.js
+
+```javascript
+let pyodideReady = false;
+let pyodide;
+
+async function loadPyodideAndPackages() {
+  pyodide = await loadPyodide();
+  pyodideReady = true;
+}
+loadPyodideAndPackages();
+
+async function runPythonCode() {
+  if (!pyodideReady) {
+    alert("Cargando intérprete Python...");
+    return;
+  }
+
+  const pythonCode = `
+import random
+
+matriz = [[random.randint(0,9) for _ in range(32)] for _ in range(32)]
+
+# Exportar como texto
+texto = "".join([str(f"{fila}\n") for fila in matriz])
+
+# Crear tabla HTML
+html = "<table>" + "".join([
+    "<tr>" + "".join([f"<td>{c}</td>" for c in fila]) + "</tr>" for fila in matriz
+]) + "</table>"
+  `;
+
+  await pyodide.runPythonAsync(pythonCode);
+
+  const texto = pyodide.globals.get("texto");
+  const html = pyodide.globals.get("html");
+
+  document.getElementById("texto-matriz").textContent = texto;
+  document.getElementById("tabla-container").innerHTML = html;
+}
+```
